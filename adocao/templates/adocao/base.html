@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>GENI</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/business-casual.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <h1 class="site-heading text-center text-white d-none d-lg-block">
+    <span class="site-heading-upper text-primary mb-3">GENI o seu gerenciador de importados</span>
+    <span class="site-heading-lower">Sistema de grenciamento de estoque de produtos nacionais e importados</span>
+
+  </h1>
+
+
+  {%block menu %}
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">GENI</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item active px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'index' %}">Pagina INICIAL
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          {% if request.user.is_authenticated %}
+
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle  text-uppercase" href="#" id="navbarDropdown" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Cadastros
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'cadastrar-estado' %}">Estado</a>
+              <a class="dropdown-item" href="{% url 'cadastrar-cidade' %}">Cidades</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'cadastrar-pais' %}">Paises</a>
+              <a class="dropdown-item" href="{% url 'cadastrar-cliente' %}">Clientes</a>
+              <a class="dropdown-item" href="{% url 'cadastrar-funcionario' %}">Funcionarios</a>
+              <a class="dropdown-item" href="{% url 'cadastrar-fornecedor' %}">Fornecedor</a>
+              <a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Produtos</a>
+
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link  text-uppercase  dropdown-toggle" href="#" id="navbarDropdown" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Listas
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'listar-estados' %}">Lista de Estados</a>
+              <a class="dropdown-item" href="{% url 'listar-cidades' %}">Lista de Cidades</a>
+              <a class="dropdown-item" href="{% url 'listar-paises' %}">Lista de Paises</a>
+              <a class="dropdown-item" href="{% url 'listar-clientes' %}">Lista de Clientes</a>
+              <a class="dropdown-item" href="{% url 'listar-funcionarios' %}">Lista de Funcionarios</a>
+              <a class="dropdown-item" href="{% url 'listar-fornecedores' %}">Lista de Fornecedores</a>
+              <a class="dropdown-item" href="{% url 'listar-produtos' %}">Lista de Produtos</a>
+            </div>
+          </li>
+          <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'cadastrar-venda' %}">Venda</a>
+          </li>
+          {% endif %}
+
+          <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'sobre' %}">Sobre</a>
+          </li>
+
+          <li class="nav-item px-lg-4">
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'curriculo'%}">Curriculo</a>
+          </li>
+
+          <li class="nav-item px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href="{% url 'relatorio'%}">Relatorio de Vendas</a>
+            </li>
+
+          <!-- Início do menu à direita -->
+          {% if request.user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{ request.user.username }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            
+              <a class="dropdown-item" href="{% url 'alterar-senha' %}">
+                <i class="fa fa-key" aria-hidden="true"></i> Alterar senha</a>
+        
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'logout' %}">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
+            </div>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">
+              <i class="fa fa-sign-in" aria-hidden="true"></i>
+              Entrar
+            </a>
+          </li>
+          {% endif %}
+          <!-- Fim do menu -->
+
+
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% endblock %}
+
+
+  {% block pagina%}
+  <section class="page-section clearfix">
+  </section>
+  {% endblock %}
+
+
+
+  <!-- Só coloca o conteúdo porque o resto já vai ser igual -->
+  {% block conteudo %}
+  <section class="page-section cta">
+    <div class="container">
+
+      <div class="row bg-white p-5 rounded">
+        <div class="col-xl-11 mx-auto">
+
+          <h2 class="section-heading mb-4">
+            <!-- Aqui você coloca o título da página -->
+            <span class="section-heading-lower">Bem vindo ao Geni</span>
+          </h2>
+          <!-- I N I C I O -->
+          <!-- Aqui vai o código do conteúdo da sua página -->
+
+
+
+          <p>Algum texto aqui</p>
+
+          <div class="">
+            <img class="img-fluid rounded" src="{% static 'img/mundoCorporativo.jpg' %}" width="700" height="500">
+          </div>
+
+          <!-- Fim do código da sua página -->
+          <!-- F I M -->
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+  {%endblock%}
+
+
+  <footer class="footer text-faded text-center py-5">
+    <div class="container">
+      <p class="m-0 small">Copyright &copy; Your Website 2019</p>
+    </div>
+  </footer>
+
+  <script src="{% static 'vendor/jquery/jquery.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.js' %}"></script>
+
+</body>
+
+</html>

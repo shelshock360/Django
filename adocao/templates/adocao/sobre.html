@@ -1,0 +1,37 @@
+<!-- Faz uma página igual a base -->
+{% extends 'adocao/base.html' %}
+
+<!-- Carrega o static -->
+{% load static %}
+
+<!-- Só coloca o conteúdo porque o resto já vai ser igual -->
+{% block conteudo %}
+  <section class="page-section cta">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-xl-11 mx-auto">
+
+          <div class="cta-inner text-center rounded">
+            <h2 class="section-heading mb-4">
+              <!-- Aqui você coloca o título da página -->
+              <span class="section-heading-lower">Sobre</span>
+            </h2>
+            <!-- I N I C I O -->
+            <!-- Aqui vai o código do conteúdo da sua página -->
+
+            <p>Escolha uma das opçoes acima o usuario pode vender cadastrar cliente cadastrar produto  cadastrar paises e estados e podera fazer venda acima podemos ver como o sistema ira funcionar</p>
+
+            <img class="img-fluid rounded" src="{% static 'img/DiagramaTcc.PNG' %}" alt="">
+
+
+            <!-- Fim do código da sua página -->
+            <!-- F I M -->
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+{%endblock%}

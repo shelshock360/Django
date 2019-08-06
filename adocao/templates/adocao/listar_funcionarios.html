@@ -1,0 +1,82 @@
+<!-- Faz uma página igual a base -->
+{% extends 'adocao/base.html' %}
+
+<!-- Carrega o static -->
+{% load static %}
+
+<!-- Só coloca o conteúdo porque o resto já vai ser igual -->
+{% block conteudo %}
+  <section class="page-section bg-light p-5">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-xl-11 mx-auto">
+
+          <div class="cta-inner text-center rounded">
+            <h2 class="section-heading mb-4">
+              <!-- Aqui você coloca o título da página -->
+              <span class="section-heading-lower">Listar de Funcionarios </span>
+            </h2>
+            <!-- I N I C I O -->
+            <!-- Aqui vai o código do conteúdo da sua página -->
+
+    
+
+            <table class="table table-striped">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>CPF</th>
+                        <th>CIDADE</th>
+                        <th>CARGO</th>
+                        <th>Data DE CONTRATAÇÃO</th>
+                        <th>SALARIO</th>
+                        <th>EMAIL</th>
+                        <th>Opções</th>
+                    </tr>
+                
+                    {% for funcionario in object_list %}
+                
+                    <tr>
+                        <td>{{funcionario.pk}}</td>
+                        <td>{{funcionario.nome}}</td>
+                        <td>{{funcionario.cpf}}</td>
+                        <td>{{funcionario.cidade}}</td>
+                        <td>{{funcionario.cargo}}</td>
+                        <td>{{funcionario.data_contratacao}}</td>
+                        <td>{{funcionario.salario}}</td>
+                        <td>{{funcionario.email}}</td>
+                        
+                        <td>
+                            <a href="{% url 'editar-funcionario'  funcionario.pk %}" class="btn btn-dark">
+                              <i class="fas fa-pencil-alt    "></i>
+                            </a>
+
+                            <a href="{% url 'excluir-funcionario'  funcionario.pk %}" class="btn btn-danger">
+                             <i class="fas fa-trash    "></i>
+                            </a>
+                        
+                        </td>
+                    </tr>
+                
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">Nenhuma funcionario cadastrado!</td>
+                    </tr>
+                    {% endfor %}
+                
+                </table>
+                
+                <a href="{% url 'cadastrar-funcionario' %}"class="btn btn-success">Adicionar novo funcionario</a>
+
+            <!-- Fim do código da sua página -->
+            <!-- F I M -->
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+{%endblock%}
