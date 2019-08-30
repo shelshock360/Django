@@ -54,3 +54,29 @@
     </div>
   </section>
 {%endblock%}
+
+{% block script %}
+
+<script src="{% static 'vendor/mask/jquery.mask.min.js' %}"></script>
+
+
+<script>
+
+$(document).ready(function () {
+  
+  $('#id_cpf').mask('000.000.000-00');
+  $('#id_data_contratacao').mask('00/00/0000');
+   $('#id_data_chegada').mask('00/00/0000');
+  $('#id_cnpj').mask('00.000.000/0000-00');
+
+  $('#id_senha').attr('type','password');
+
+  $('#id_email').attr('placeholder', '@email.com');
+
+  $('#id_data_venda').mask('00/00/0000');
+
+
+});
+
+</script>
+{% endblock %}

@@ -483,6 +483,8 @@ class FornecedorUpdate(LoginRequiredMixin, UpdateView):
 
         return context
 
+    
+
 
 
 
@@ -602,3 +604,8 @@ class VendaCreate(LoginRequiredMixin, CreateView):
         
         return context
 
+
+
+class VendaList(LoginRequiredMixin, ListView):
+	model =  Venda
+	template_name = "adocao/listar_vendas.html"

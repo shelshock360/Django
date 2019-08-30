@@ -19,6 +19,7 @@ urlpatterns = [
 	path('lista/funcionarios/',   FuncionarioList.as_view(), name="listar-funcionarios"),
 	path('lista/fornecedores/',   FornecedorList.as_view(), name="listar-fornecedores"),
 	path('lista/produtos/',   ProdutoList.as_view(), name="listar-produtos"),
+	path('lista/vendas/',   VendaList.as_view(), name="listar-vendas"),
 	# path('funcionario/',  FuncionarioView.as_view(), name="funcionario"),
 	# path('cliente/',  ClienteView.as_view(), name="cliente"),
 
