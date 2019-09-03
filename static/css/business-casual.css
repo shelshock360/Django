@@ -6,8 +6,8 @@
 
 body {
   font-family: 'Lora';
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(15, 16, 47, 0))), url("../img/bandeiras.JPG");
-  background: linear-gradient(rgba(15, 16, 47, 0)), url("../img/bandeiras.JPG");
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(15, 16, 47, 0))), url("../img/bandeiras.jpg");
+  background: linear-gradient(rgba(15, 16, 47, 0)), url("../img/bandeiras.jpg");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
