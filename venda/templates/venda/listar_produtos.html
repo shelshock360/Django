@@ -1,0 +1,80 @@
+<!-- Faz uma página igual a base -->
+{% extends 'adocao/base.html' %}
+
+<!-- Carrega o static -->
+{% load static %}
+
+<!-- Só coloca o conteúdo porque o resto já vai ser igual -->
+{% block conteudo %}
+
+<style>
+    form ul, form ul li{
+        list-style-type: none;
+        list-style: none;
+    }
+</style>
+
+<section class="page-section bg-light p-5">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xl-11 mx-auto">
+
+                <div class="cta-inner text-center rounded">
+                    <h2 class="section-heading mb-4">
+                        <!-- Aqui você coloca o título da página -->
+                        <span class="section-heading-lower">Adicionar Produtos para Venda</span>
+                    </h2>
+                    <!-- I N I C I O -->
+                    <!-- Aqui vai o código do conteúdo da sua página -->
+
+
+
+                    <table class="table table-striped">
+
+                        <tr>
+                            <th>NOME</th>
+                            <th>MARCA</th>
+                            <th>MODELO</th>
+                            <th>VALOR DE VENDA</th>
+                            <th>QTDE ESTOQUE</th>
+                            <th>Opções</th>
+                        </tr>
+
+                        {% for produto in object_list %}
+
+                        <tr>
+                            <td>{{produto.nome}}</td>
+                            <td>{{produto.marca}}</td>
+                            <td>{{produto.modelo}}</td>
+                            <td>{{produto.valor_venda}}</td>
+                            <td>{{produto.qtde_estoque}}</td>
+
+                            <td>
+                                <!-- URL para adicionar ItensCarrinho -->
+                                <a href="#" class="btn btn-sm btn-success">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">Nenhuma Produto cadastrado!</td>
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+
+                    <a href="{% url 'cadastrar-produto' %}" class="btn btn-success">Adicionar novo produto</a>
+
+                    <!-- Fim do código da sua página -->
+                    <!-- F I M -->
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+{%endblock%}

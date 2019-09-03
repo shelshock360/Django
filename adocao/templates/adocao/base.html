@@ -91,9 +91,21 @@
               <a class="dropdown-item" href="{% url 'listar-vendas' %}">Lista de Vendas</a>
             </div>
           </li>
-          <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="{% url 'cadastrar-venda' %}">Venda</a>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link  text-uppercase  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Venda
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{% url 'lista-vender-produtos' %}">Adicionar Produto</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="">Carrinho de Vendas</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'cadastrar-venda' %}">Finalizar Venda</a>
+            </div>
           </li>
+
           {% endif %}
 
           <li class="nav-item px-lg-4">

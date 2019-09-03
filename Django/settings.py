@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'adocao.apps.AdocaoConfig',#ativando esse modulo
     'usuarios.apps.UsuariosConfig',
+    'venda.apps.VendaConfig',
     'crispy_forms',
     
 
