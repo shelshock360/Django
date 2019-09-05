@@ -60,7 +60,7 @@ class ProdutoCreateCarrinhoVenda (LoginRequiredMixin, CreateView):
         produto = Produto.objects.get(pk=protudo_id)
 
         # Verificar se o estoque do produto é maior que a quantidade
-        if(Produto.qtde_estoque < quantidade):
+        if(Produto.qtde_estoque > quantidade):
             
             # Pode fazer o procedimento padrão
             print("Ok, pode salvar")
