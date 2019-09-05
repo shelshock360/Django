@@ -196,11 +196,12 @@ class Venda (models.Model):
     data_venda = models.DateField()
     vendedor = models.ForeignKey(Funcionario, on_delete=models.PROTECT)
     observacao = models.TextField(blank=True, null=True, verbose_name="Observação",  help_text="qual quer informação adicional para a venda")
-    produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
-    qtde = models.IntegerField()
+    valor_total = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    # produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
+    # qtde = models.IntegerField()
 
     def __str__(self):
-        return str(self.data_venda) + '-'+self.produto.nome
+        return str(self.pk) + ' | ' + str(self.data_venda) + ' | ' + self.cliente.nome + ' | ' + str(self.valor_total)
         
 class ItemsVenda(models.Model):
       preco = models.DecimalField(max_digits=8, decimal_places=2)
@@ -208,4 +209,4 @@ class ItemsVenda(models.Model):
       produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
       venda = models.ForeignKey(Venda, on_delete=models.PROTECT)
       def __str__(self):
-        return self.preco + "-"+str(self.quantidade)
+        return "[Venda ID: " + str(self.venda.pk) + "] " + self.produto.nome + " x " + str(self.qtde) + " = " + str(self.preco)

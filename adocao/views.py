@@ -1,7 +1,7 @@
 from django.shortcuts import render
 # importar todas as classes de models.py
 from .models import *
-
+from venda.models import ItensCarrinho
 from django.views.generic import TemplateView
 
 from django.urls import reverse_lazy
@@ -589,10 +589,53 @@ class VendaCreate(LoginRequiredMixin, CreateView):
     template_name = "adocao/formulario.html"
 
     # Pra onde redirecionar o usuario  depois de inserir
-    success_url = reverse_lazy("index")
+    success_url = reverse_lazy("listar-vendas")
     # quais campos vai aparecer no formulario
-    fields = ['cliente','data_venda','vendedor','observacao','produto','qtde']
-# metodo ultilizado para enviar dados ao template
+    fields = ['cliente','data_venda','vendedor','observacao']
+    # metodo ultilizado para enviar dados ao template
+
+    """ Método que é chamadao para validar o formulário e salvar o objeto no banco """
+    def form_valid(self, form):
+        # Executa o form_valid padrão para validar e salvar no banco de dados
+        redirect_url = super(VendaCreate, self).form_valid(form)
+
+        # Cria uma variável pra essa venda
+        valorTotal = 0
+
+        """ Agora temos a venda no banco, vamos pegar os produtos do carrinho e salvar nessa venda """
+        # buscar todos os objetos da classe ItensCarrinho no banco
+        produtosCarrinho = ItensCarrinho.objects.all()
+
+        # Para cada produto no carrinho, salva no ItemsVenda (foreach)
+        for itemCarrinho in produtosCarrinho:
+
+            # Calcula o subtotal = quantidade x valor do produto
+            subtotal = itemCarrinho.produto.valor_venda * itemCarrinho.quantidade
+            # Atualiza o valor total da venda
+            valorTotal = valorTotal + subtotal
+            
+            # Cria um objeto no ItemsVenda no banco de dados para saber os produtos que foram vendidos
+            ItemsVenda.objects.create(
+                preco=subtotal,
+                qtde=itemCarrinho.quantidade,
+                produto=itemCarrinho.produto,
+                venda=self.object
+            )
+
+            # Da baixa no estoque no produto
+            itemCarrinho.produto.qtde_estoque = itemCarrinho.produto.qtde_estoque - itemCarrinho.quantidade
+            # Atualiza o produto no banco de dados
+            itemCarrinho.produto.save()
+
+            # Deleta o item do carrinho
+            itemCarrinho.delete()
+
+        # Atualiza o objeto dessa venda com o valor total
+        self.object.valor_total = valorTotal
+        self.object.save()
+
+        # Fim do form_valid
+        return redirect_url
 
     def get_context_data(self, *args, **kwargs):
         context = super(VendaCreate, self).get_context_data(*args, **kwargs)
@@ -605,7 +648,53 @@ class VendaCreate(LoginRequiredMixin, CreateView):
         return context
 
 
-
 class VendaList(LoginRequiredMixin, ListView):
 	model =  Venda
 	template_name = "adocao/listar_vendas.html"
+
+
+class VendaUpdate(LoginRequiredMixin, UpdateView):
+    # defini qual o modelo pra classe
+
+    model = Venda
+    template_name = "adocao/formulario.html"
+
+    # Pra onde redirecionar o usuario  depois de inserir
+    success_url = reverse_lazy("index")
+    # quais campos vai aparecer no formulario
+    fields = ['cliente','data_venda','vendedor','observacao']
+# metodo ultilizado para enviar dados ao template
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(VendaUpdate, self).get_context_data(*args, **kwargs)
+
+        # adiciona coisas ao contextos das coisas
+        context['titulo'] = "editar venda produto"
+        context['botao'] = "Cadastrar"
+        context['classbotao'] = "btn-success"
+        
+        return context
+
+
+class VendaDelete(LoginRequiredMixin, DeleteView):
+    # defini qual o modelo pra classe
+
+    model = Venda
+    template_name = "adocao/formulario.html"
+
+    # Pra onde redirecionar o usuario  depois de inserir
+    success_url = reverse_lazy("index")
+    # quais campos vai aparecer no formulario
+    fields = ['cliente','data_venda','vendedor','observacao']
+# metodo ultilizado para enviar dados ao template
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(VendaDelete, self).get_context_data(*args, **kwargs)
+
+        # adiciona coisas ao contextos das coisas
+        context['titulo'] = "excluir registro de venda"
+        context['botao'] = "Excluir"
+        context['classbotao'] = "btn-danger"
+
+        return context
+
