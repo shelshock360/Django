@@ -23,7 +23,7 @@
                 <div class="cta-inner text-center rounded">
                     <h2 class="section-heading mb-4">
                         <!-- Aqui você coloca o título da página -->
-                        <span class="section-heading-lower">Adicionar Produtos para Venda</span>
+                        <span class="section-heading-lower">Produtos da Venda Atual</span>
                     </h2>
                     <!-- I N I C I O -->
                     <!-- Aqui vai o código do conteúdo da sua página -->
@@ -36,24 +36,28 @@
                             <th>NOME</th>
                             <th>MARCA</th>
                             <th>MODELO</th>
+                            <th>QTDE</th>
                             <th>VALOR DE VENDA</th>
-                            <th>QTDE ESTOQUE</th>
-                            <th>Opções</th>
+                            <th>INF. AD.</th>
+                            <th>OPÇÕES</th>
                         </tr>
 
-                        {% for produto in object_list %}
+                        {% for item in object_list %}
 
                         <tr>
-                            <td>{{produto.nome}}</td>
-                            <td>{{produto.marca}}</td>
-                            <td>{{produto.modelo}}</td>
-                            <td>{{produto.valor_venda}}</td>
-                            <td>{{produto.qtde_estoque}}</td>
+                            <td>{{item.produto.nome}}</td>
+                            <td>{{item.produto.marca}}</td>
+                            <td>{{item.produto.modelo}}</td>
+                            <td>{{item.quantidade}}</td>
+                            <td>{{item.produto.valor_venda}}</td>
+                            <td>{{item.informacoes_adicionais}}</td>
 
                             <td>
-                                <!-- URL para adicionar ItensCarrinho -->
-                                <a href="{% url 'cadastrar-carrinhoVenda' %}" class="btn btn-sm btn-success">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                <a href="{% url 'editar-produtoCarrinho' item.pk %}" class="btn btn-sm btn-warning">
+                                    <i class="fas fa-pencil-alt "></i>
+                                </a>
+                                <a href="{% url 'excluir-produtoCarrinho' item.pk %}" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash "></i>
                                 </a>
                             </td>
                         </tr>
@@ -66,7 +70,8 @@
 
                     </table>
 
-                    <a href="{% url 'cadastrar-produto' %}" class="btn btn-success">Adicionar novo produto</a>
+                    <a href="{% url 'cadastrar-produtoCarrinho' %}" class="btn btn-success">Adicionar novo produto</a>
+                    <a href="{% url 'cadastrar-produtoCarrinho' %}" class="btn btn-secondary">Finalizar venda</a>
 
                     <!-- Fim do código da sua página -->
                     <!-- F I M -->

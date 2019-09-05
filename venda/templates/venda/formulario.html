@@ -1,0 +1,82 @@
+
+<!-- Faz uma página igual a base -->
+{% extends 'adocao/base.html' %}
+
+<!-- Carrega o static -->
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!-- Só coloca o conteúdo porque o resto já vai ser igual -->
+{% block conteudo %}
+
+  <section class="page-section cta">
+    <div class="container">
+
+      <div class="row bg-white p-5 rounded">
+        <div class="col-xl-9 mx-auto">
+
+            <h2 class="section-heading mb-4">
+              <!-- Aqui você coloca o título da página -->
+              <span class="section-heading-lower"> {{ titulo }} </span>
+            </h2>
+
+            {% if botao == 'Remover'  %}
+            <h4>
+              Deseja excluir este registro: {{object}}
+            </h4>
+            {% endif %}
+            
+            <!-- I N I C I O -->
+            <!-- Aqui vai o código do conteúdo da sua página -->
+            <form method="POST">
+
+              <!---#todo formulario precisa dessa validacao-->
+              {% csrf_token %}
+
+              {{ form|crispy}}
+
+              <div class="my-4">
+                <button type="submit" class="btn {{ classbotao }}">{{botao}}</button>
+                <a href="{% url urlvoltar %}" class="btn btn-secondary">Voltar</a>
+              </div>
+
+            </form>
+
+
+
+
+            <!-- Fim do código da sua página -->
+            <!-- F I M -->
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+{%endblock%}
+
+{% block script %}
+
+<script src="{% static 'vendor/mask/jquery.mask.min.js' %}"></script>
+
+
+<script>
+
+$(document).ready(function () {
+  
+  $('#id_cpf').mask('000.000.000-00');
+  $('#id_data_contratacao').mask('00/00/0000');
+   $('#id_data_chegada').mask('00/00/0000');
+  $('#id_cnpj').mask('00.000.000/0000-00');
+
+  $('#id_senha').attr('type','password');
+
+  $('#id_email').attr('placeholder', '@email.com');
+
+  $('#id_data_venda').mask('00/00/0000');
+
+
+});
+
+</script>
+{% endblock %}

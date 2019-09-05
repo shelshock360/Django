@@ -10,8 +10,8 @@ from .views import ProdutoDeleteCarrinhoVenda
 urlpatterns = [
     
     path('vender/produtos/', ProdutoListCarrinhoVenda.as_view(), name="lista-vender-produtos"),
-    path('cadastrar/produtos/', ProdutoCreateCarrinhoVenda.as_view(), name="cadastrar-carrinhoVenda"),
-   	path('editar/produtos/<int:pk>/', ProdutoUpdateCarrinhoVenda.as_view(), name="editar-carrinhoVenda"),
-    path('excluir/produtos/<int:pk>/', ProdutoDeleteCarrinhoVenda.as_view(), name="excluir-carrinhoVenda"),
+    path('adicionar/produto/', ProdutoCreateCarrinhoVenda.as_view(), name="cadastrar-produtoCarrinho"),
+   	path('atualizar/produto/<int:pk>/', ProdutoUpdateCarrinhoVenda.as_view(), name="editar-produtoCarrinho"),
+    path('remover/produto/<int:pk>/', ProdutoDeleteCarrinhoVenda.as_view(), name="excluir-produtoCarrinho"),
     
 ]
