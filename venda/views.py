@@ -49,6 +49,30 @@ class ProdutoCreateCarrinhoVenda (LoginRequiredMixin, CreateView):
     # quais campos vai aparecer no formulario
     fields = ['produto', 'quantidade', 'informacoes_adicionais']
 
+    # Valida o formulário e salva no banco
+    def form_valid(self, form):
+
+        # Recebe os dados do formulário
+        quantidade = form.cleaned_data['quantidade']
+        protudo_id = form.cleaned_data['produto']
+
+        # Buscar o objeto Produto com o id 
+        produto = Produto.objects.get(pk=protudo_id)
+
+        # Verificar se o estoque do produto é maior que a quantidade
+        if(Produto.qtde_estoque < quantidade):
+            
+            # Pode fazer o procedimento padrão
+            print("Ok, pode salvar")
+
+            # Chamar o super
+            # retornar 
+
+        else:
+            # Como gerar um erro no form_valid
+            print("quantidade menor")
+
+
     def get_context_data(self, *args, **kwargs):
         context = super( ProdutoCreateCarrinhoVenda, self).get_context_data(*args, **kwargs)
 
