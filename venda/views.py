@@ -37,3 +37,73 @@ class ProdutoListCarrinhoVenda(LoginRequiredMixin, ListView):
         context['teste'] = "bla bla"
 
         return context
+
+
+class ProdutoCreateCarrinhoVenda (LoginRequiredMixin, CreateView):
+    # defini qual o modelo pra classe
+
+    model = ItensCarrinho
+    template_name = "venda/listar_produtos.html"
+
+    # Pra onde redirecionar o usuario  depois de inserir
+    success_url = reverse_lazy("lista-vender-produtos")
+    # quais campos vai aparecer no formulario
+    fields = ['produto', 'quantidade']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super( ProdutoCreateCarrinhoVenda, self).get_context_data(*args, **kwargs)
+
+        # adiciona coisas ao contextos das coisas
+        context['titulo'] = "vendas"
+        context['botao'] = "Cadastrar"
+        context['classbotao'] = "btn-success"
+
+        return context
+
+
+class ProdutoUpdateCarrinhoVenda (LoginRequiredMixin, UpdateView):
+    # defini qual o modelo pra classe
+
+    model = ItensCarrinho
+    template_name = "venda/listar_produtos.html"
+
+    # Pra onde redirecionar o usuario  depois de inserir
+    success_url = reverse_lazy("lista-vender-produtos")
+    # quais campos vai aparecer no formulario
+    fields = ['produto', 'quantidade']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProdutoUpdateCarrinhoVenda, self).get_context_data(*args, **kwargs)
+
+        # adiciona coisas ao contextos das coisas
+        context['titulo'] = "editar vendas"
+        context['botao'] = "Cadastrar"
+        context['classbotao'] = "btn-success"
+        return context
+
+
+class ProdutoDeleteCarrinhoVenda (LoginRequiredMixin, DeleteView):
+    # defini qual o modelo pra classe
+
+    model = ItensCarrinho
+    template_name = "venda/listar_produtos.html"
+    # Pra onde redirecionar o usuario  depois de inserir
+    success_url = reverse_lazy("listar-estados")
+    # quais campos vai aparecer no formulario
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(EstadoDelete, self).get_context_data(*args, **kwargs)
+
+        # adiciona coisas ao contextos das coisas
+        context['titulo'] = "excluir registro de venda"
+        context['botao'] = "Excluir"
+        context['classbotao'] = "btn-danger"
+
+        return context
+
+
+
+
+
+
+
