@@ -14,6 +14,8 @@ from django.views.generic.list import ListView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
+
 # Create your views here.
 
 
@@ -54,23 +56,20 @@ class ProdutoCreateCarrinhoVenda (LoginRequiredMixin, CreateView):
 
         # Recebe os dados do formulário
         quantidade = form.cleaned_data['quantidade']
-        protudo_id = form.cleaned_data['produto']
-
-        # Buscar o objeto Produto com o id 
-        produto = Produto.objects.get(pk=protudo_id)
+        produto = form.cleaned_data['produto']
 
         # Verificar se o estoque do produto é maior que a quantidade
-        if(Produto.qtde_estoque > quantidade):
-            
+        if(int(produto.qtde_estoque) < int(quantidade)):
+
             # Pode fazer o procedimento padrão
-            print("Ok, pode salvar")
+            form.add_error(None, 'A quantidade informada não tem no estoque.')
 
             # Chamar o super
-            # retornar 
+            return self.form_invalid(form)
+        # se ok
+        else:    
+            return super().form_valid(form)
 
-        else:
-            # Como gerar um erro no form_valid
-            print("quantidade menor")
 
 
     def get_context_data(self, *args, **kwargs):

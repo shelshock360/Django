@@ -5,6 +5,7 @@ from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 
+
 error_messages = {
     'invalid': _("Invalid CPF number."),
     'digits_only': _("This field requires only numbers."),

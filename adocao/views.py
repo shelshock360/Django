@@ -13,6 +13,8 @@ from django.views.generic.list import ListView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from braces.views import GroupRequiredMixin
+
 # Create your views here.
 
 
@@ -41,11 +43,12 @@ class FormularioView(TemplateView):
 ##############################INSERIR ###################
 
 
-class EstadoCreate(LoginRequiredMixin, CreateView):
+class EstadoCreate(LoginRequiredMixin, CreateView, GroupRequiredMixin):
     # defini qual o modelo pra classe
 
     model = Estado
     template_name = "adocao/formulario.html"
+    group_required = u"VENDEDOR"
 
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-estados")
