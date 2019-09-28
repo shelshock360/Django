@@ -15,6 +15,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from braces.views import GroupRequiredMixin
 
+from django.contrib.auth.models import User, Group
 # Create your views here.
 
 
@@ -43,12 +44,12 @@ class FormularioView(TemplateView):
 ##############################INSERIR ###################
 
 
-class EstadoCreate(LoginRequiredMixin, CreateView, GroupRequiredMixin):
+class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     # defini qual o modelo pra classe
 
     model = Estado
     template_name = "adocao/formulario.html"
-    group_required = u"VENDEDOR"
+    group_required = u"gerente"
 
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-estados")
@@ -332,9 +333,9 @@ class ClienteDelete(LoginRequiredMixin, DeleteView):
    #################### Funcionario ###########
 
 
-class FuncionarioCreate(LoginRequiredMixin, CreateView):
+class FuncionarioCreate(GroupRequiredMixin ,LoginRequiredMixin, CreateView):
     # defini qual o modelo pra classe
-
+    group_required = u"GERENTE"
     model = Funcionario
     template_name = "adocao/formulario.html"
 
@@ -369,13 +370,20 @@ class FuncionarioCreate(LoginRequiredMixin, CreateView):
             user = User.objects.create_user(usuario, email, senha)
             # Adicionar o usuário no grupo
             if (cargo == "VENDEDOR"):
-                grupo = Group.objects.get(name='Funcionários')
+                grupo = Group.objects.get(name='VENDEDOR')
                 user.groups.add(grupo)
+                user.save()
             # Ou fazer ele um admin/superuser
             elif (cargo == "GERENTE"):
+                grupo = Group.objects.get(name='GERENTE')
+                user.groups.add(grupo)
                 user.is_superuser = True
                 user.save()
         except:
+            # try
+            user.delete()
+            # except:
+            #     pass
             form.add_error(None, 'Erro ao tentar cadastrar esse funcionário como usuário.')
             return self.form_invalid(form)
 
