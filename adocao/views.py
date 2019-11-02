@@ -16,9 +16,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
 
 from django.contrib.auth.models import User, Group
+
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 
+from django.views.generic.detail import DetailView
 class PaginaInicialView(TemplateView):
     # nome do arquivo que sera ultilizado para renderizar
     template_name = "adocao/index.html"
@@ -33,12 +36,14 @@ class CurriculoView(TemplateView):
     template_name = "adocao/curriculo.html"
 
 
-class RelatorioView(TemplateView):
-    template_name = "adocao/relatorio.html"
+# class RelatorioView(TemplateView):
+#     template_name = "adocao/relatorio.html"
 
 
 class FormularioView(TemplateView):
     template_name = "adocao/formulario.html"
+
+
 
 
 ##############################INSERIR ###################
@@ -69,11 +74,12 @@ class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 ##############################Alterar ###################
 
 
-class EstadoUpdate(LoginRequiredMixin, UpdateView):
+class EstadoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     # defini qual o modelo pra classe
 
     model = Estado
     template_name = "adocao/formulario.html"
+    group_required = u"gerente"
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-estados")
     # quais campos vai aparecer no formulario
@@ -89,11 +95,12 @@ class EstadoUpdate(LoginRequiredMixin, UpdateView):
         return context
 
 
-class EstadoDelete(LoginRequiredMixin, DeleteView):
+class EstadoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     # defini qual o modelo pra classe
 
     model = Estado
     template_name = "adocao/formulario.html"
+    group_required = u"gerente"
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-estados")
     # quais campos vai aparecer no formulario
@@ -109,18 +116,20 @@ class EstadoDelete(LoginRequiredMixin, DeleteView):
         return context
 
 
-class EstadoList(LoginRequiredMixin, ListView):
-	model = Estado
-	template_name = "adocao/listar_estados.html"
+class EstadoList(GroupRequiredMixin,LoginRequiredMixin, ListView):
+    model = Estado
+    template_name = "adocao/listar_estados.html"
+    group_required = u"gerente"
 
-        ######################Paises##############
+    ######################Paises##############
 
 
-class PaisCreate(LoginRequiredMixin, CreateView):
+class PaisCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     # defini qual o modelo pra classe
 
     model = Pais
     template_name = "adocao/formulario.html"
+    group_required = u"gerente"
 
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-paises")
@@ -138,16 +147,18 @@ class PaisCreate(LoginRequiredMixin, CreateView):
         return context
 
 
-class PaisList(LoginRequiredMixin, ListView):
-	model = Pais
-	template_name = "adocao/listar_paises.html"
+class PaisList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    group_required = u"gerente"
+    model = Pais
+    template_name = "adocao/listar_paises.html"
 
 
-class PaisDelete(LoginRequiredMixin, DeleteView):
+class PaisDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     # defini qual o modelo pra classe
 
     model = Pais
     template_name = "adocao/formulario.html"
+    group_required = u"gerente"
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-paises")
     # quais campos vai aparecer no formulario
@@ -163,11 +174,12 @@ class PaisDelete(LoginRequiredMixin, DeleteView):
         return context
 
 
-class PaisUpdate(LoginRequiredMixin, UpdateView):
+class PaisUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     # defini qual o modelo pra classe
 
     model = Pais
     template_name = "adocao/formulario.html"
+    group_required = u"gerente"
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-paises")
     # quais campos vai aparecer no formulario
@@ -186,11 +198,12 @@ class PaisUpdate(LoginRequiredMixin, UpdateView):
      ######################Cidades##############
 
 
-class CidadeCreate(LoginRequiredMixin, CreateView):
+class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     # defini qual o modelo pra classe
 
     model = Cidade
     template_name = "adocao/formulario.html"
+    group_required = u"gerente"
 
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-cidades")
@@ -209,11 +222,12 @@ class CidadeCreate(LoginRequiredMixin, CreateView):
         return context
 
 
-class CidadeDelete(LoginRequiredMixin, DeleteView):
+class CidadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     # defini qual o modelo pra classe
 
     model = Cidade
     template_name = "adocao/formulario.html"
+    group_required = u"gerente"
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-cidades")
     # quais campos vai aparecer no formulario
@@ -229,16 +243,17 @@ class CidadeDelete(LoginRequiredMixin, DeleteView):
         return context
 
 
-class CidadeList(LoginRequiredMixin, ListView):
-	model = Cidade
-	template_name = "adocao/listar_cidades.html"
+class CidadeList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    model = Cidade
+    template_name = "adocao/listar_cidades.html"
+    group_required = u"gerente"
 
-
-class CidadeUpdate(LoginRequiredMixin, UpdateView):
+class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     # defini qual o modelo pra classe
 
     model = Cidade
     template_name = "adocao/formulario.html"
+    group_required = u"gerente"
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-cidades")
     # quais campos vai aparecer no formulario
@@ -260,7 +275,6 @@ class CidadeUpdate(LoginRequiredMixin, UpdateView):
 
 class ClienteCreate(LoginRequiredMixin, CreateView):
     # defini qual o modelo pra classe
-
     model = Cliente
     template_name = "adocao/formulario.html"
 
@@ -283,8 +297,8 @@ class ClienteCreate(LoginRequiredMixin, CreateView):
 
 
 class ClienteList(LoginRequiredMixin, ListView):
-	model = Cliente
-	template_name = "adocao/listar_clientes.html"
+    model = Cliente
+    template_name = "adocao/listar_clientes.html"
 
 
 class ClienteUpdate(LoginRequiredMixin, UpdateView):
@@ -311,11 +325,13 @@ class ClienteUpdate(LoginRequiredMixin, UpdateView):
         return context
 
 
-class ClienteDelete(LoginRequiredMixin, DeleteView):
+class ClienteDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     # defini qual o modelo pra classe
 
     model = Cliente
     template_name = "adocao/formulario.html"
+    group_required = u"gerente"
+
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-clientes")
     # quais campos vai aparecer no formulario
@@ -333,9 +349,9 @@ class ClienteDelete(LoginRequiredMixin, DeleteView):
    #################### Funcionario ###########
 
 
-class FuncionarioCreate(GroupRequiredMixin ,LoginRequiredMixin, CreateView):
+class FuncionarioCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     # defini qual o modelo pra classe
-    group_required = u"GERENTE"
+    group_required = u"gerente"
     model = Funcionario
     template_name = "adocao/formulario.html"
 
@@ -356,7 +372,6 @@ class FuncionarioCreate(GroupRequiredMixin ,LoginRequiredMixin, CreateView):
         context['classbotao'] = "btn-success"
         return context
 
-
     def form_valid(self, form):
 
         # Recebe os dados do formulário
@@ -365,7 +380,7 @@ class FuncionarioCreate(GroupRequiredMixin ,LoginRequiredMixin, CreateView):
         usuario = form.cleaned_data['usuario']
         cargo = form.cleaned_data['cargo']
 
-	    # Tenta criar um usuário
+        # Tenta criar um usuário
         try:
             user = User.objects.create_user(usuario, email, senha)
             # Adicionar o usuário no grupo
@@ -384,17 +399,20 @@ class FuncionarioCreate(GroupRequiredMixin ,LoginRequiredMixin, CreateView):
             user.delete()
             # except:
             #     pass
-            form.add_error(None, 'Erro ao tentar cadastrar esse funcionário como usuário.')
+            form.add_error(
+                None, 'Erro ao tentar cadastrar esse funcionário como usuário.')
             return self.form_invalid(form)
 
         # "ligar" o usuário criado com o funcionário que vai ser cadastrado
         form.instance.user = user
-	    # Se tudo ocorreu bem, finaliza
+        # Se tudo ocorreu bem, finaliza
         return super(FuncionarioCreate, self).form_valid(form)
 
-class FuncionarioList(LoginRequiredMixin, ListView):
-	model =  Funcionario
-	template_name = "adocao/listar_funcionarios.html"
+
+class FuncionarioList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    group_required = u"gerente"
+    model = Funcionario
+    template_name = "adocao/listar_funcionarios.html"
 
 
 class FuncionarioUpdate(LoginRequiredMixin, UpdateView):
@@ -406,19 +424,21 @@ class FuncionarioUpdate(LoginRequiredMixin, UpdateView):
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-funcionarios")
     # quais campos vai aparecer no formulario
-    fields = ['nome','cpf','cidade', 'cargo',
-              'data_contratacao','salario', 'observacao']
+    fields = ['nome', 'cpf', 'cidade', 'cargo',
+              'data_contratacao', 'salario', 'observacao']
 # metodo ultilizado para enviar dados ao template
 
     def get_context_data(self, *args, **kwargs):
-        context = super(FuncionarioUpdate, self).get_context_data(*args, **kwargs)
+        context = super(FuncionarioUpdate, self).get_context_data(
+            *args, **kwargs)
 
         # adiciona coisas ao contextos das coisas
         context['titulo'] = "editar funcionarios"
         context['botao'] = "Cadastrar"
         context['classbotao'] = "btn-success"
-        
+
         return context
+
 
 class FuncionarioDelete(LoginRequiredMixin, DeleteView):
     # defini qual o modelo pra classe
@@ -430,7 +450,8 @@ class FuncionarioDelete(LoginRequiredMixin, DeleteView):
     # quais campos vai aparecer no formulario
 
     def get_context_data(self, *args, **kwargs):
-        context = super(FuncionarioDelete, self).get_context_data(*args, **kwargs)
+        context = super(FuncionarioDelete, self).get_context_data(
+            *args, **kwargs)
 
         # adiciona coisas ao contextos das coisas
         context['titulo'] = "excluir registro de funcionario"
@@ -439,27 +460,26 @@ class FuncionarioDelete(LoginRequiredMixin, DeleteView):
 
         return context
 
-
-
-
     ###################### Fornecedores ###################
 
 
+class FornecedorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 
-class FornecedorCreate(LoginRequiredMixin,CreateView):
     # defini qual o modelo pra classe
-
+    group_required = u"gerente"
     model = Fornecedor
     template_name = "adocao/formulario.html"
 
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-fornecedores")
     # quais campos vai aparecer no formulario
-    fields = ['nome','cnpj','endereco','pais','cidade','telefone', 'observacao']
+    fields = ['nome', 'cnpj', 'endereco', 'pais',
+              'cidade', 'telefone', 'observacao']
 # metodo ultilizado para enviar dados ao template
 
     def get_context_data(self, *args, **kwargs):
-        context = super(FornecedorCreate, self).get_context_data(*args, **kwargs)
+        context = super(FornecedorCreate, self).get_context_data(
+            *args, **kwargs)
 
         # adiciona coisas ao contextos das coisas
         context['titulo'] = "Cadastro de novos Fornecedores"
@@ -468,24 +488,29 @@ class FornecedorCreate(LoginRequiredMixin,CreateView):
 
         return context
 
-class FornecedorList(LoginRequiredMixin, ListView):
-	model =  Fornecedor
-	template_name = "adocao/listar_fornecedores.html"
 
-class FornecedorUpdate(LoginRequiredMixin, UpdateView):
+class FornecedorList(GroupRequiredMixin, LoginRequiredMixin, ListView):
+    group_required = u"gerente"
+    model = Fornecedor
+    template_name = "adocao/listar_funcionarios.html"
+
+
+class FornecedorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     # defini qual o modelo pra classe
-
+    group_required = u"gerente"
     model = Fornecedor
     template_name = "adocao/formulario.html"
 
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-fornecedores")
     # quais campos vai aparecer no formulario
-    fields = ['nome','cnpj','endereco','pais','cidade','telefone', 'observacao']
+    fields = ['nome', 'cnpj', 'endereco', 'pais',
+              'cidade', 'telefone', 'observacao']
 # metodo ultilizado para enviar dados ao template
 
     def get_context_data(self, *args, **kwargs):
-        context = super(FornecedorUpdate, self).get_context_data(*args, **kwargs)
+        context = super(FornecedorUpdate, self).get_context_data(
+            *args, **kwargs)
 
         # adiciona coisas ao contextos das coisas
         context['titulo'] = "Cadastro de novos Fornecedores"
@@ -494,15 +519,10 @@ class FornecedorUpdate(LoginRequiredMixin, UpdateView):
 
         return context
 
-    
 
-
-
-
-
-class FornecedorDelete(LoginRequiredMixin, DeleteView):
+class FornecedorDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     # defini qual o modelo pra classe
-
+    group_required = u"gerente"
     model = Fornecedor
     template_name = "adocao/formulario.html"
     # Pra onde redirecionar o usuario  depois de inserir
@@ -510,7 +530,8 @@ class FornecedorDelete(LoginRequiredMixin, DeleteView):
     # quais campos vai aparecer no formulario
 
     def get_context_data(self, *args, **kwargs):
-        context = super(FornecedorDelete, self).get_context_data(*args, **kwargs)
+        context = super(FornecedorDelete, self).get_context_data(
+            *args, **kwargs)
 
         # adiciona coisas ao contextos das coisas
         context['titulo'] = "excluir registro de fornecedor"
@@ -520,9 +541,8 @@ class FornecedorDelete(LoginRequiredMixin, DeleteView):
         return context
 
 
-
 ################## Produto ####################
-class ProdutoCreate(LoginRequiredMixin,CreateView):
+class ProdutoCreate(LoginRequiredMixin, CreateView):
     # defini qual o modelo pra classe
 
     model = Produto
@@ -531,7 +551,8 @@ class ProdutoCreate(LoginRequiredMixin,CreateView):
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-produtos")
     # quais campos vai aparecer no formulario
-    fields = ['nome','marca','fornecedor','modelo','valor_venda','data_chegada','qtde_estoque','observacao']
+    fields = ['nome', 'marca', 'fornecedor', 'modelo',
+              'valor_venda', 'data_chegada', 'qtde_estoque', 'observacao']
 # metodo ultilizado para enviar dados ao template
 
     def get_context_data(self, *args, **kwargs):
@@ -544,9 +565,10 @@ class ProdutoCreate(LoginRequiredMixin,CreateView):
 
         return context
 
+
 class ProdutoList(LoginRequiredMixin, ListView):
-	model =  Produto
-	template_name = "adocao/listar_produtos.html"
+    model = Produto
+    template_name = "adocao/listar_produtos.html"
 
 
 class ProdutoUpdate(LoginRequiredMixin, UpdateView):
@@ -558,7 +580,8 @@ class ProdutoUpdate(LoginRequiredMixin, UpdateView):
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-produtos")
     # quais campos vai aparecer no formulario
-    fields = ['nome','marca','modelo','fornecedor','valor_venda','data_chegada','qtde_estoque','observacao']
+    fields = ['nome', 'marca', 'modelo', 'fornecedor',
+              'valor_venda', 'data_chegada', 'qtde_estoque', 'observacao']
 # metodo ultilizado para enviar dados ao template
 
     def get_context_data(self, *args, **kwargs):
@@ -569,8 +592,6 @@ class ProdutoUpdate(LoginRequiredMixin, UpdateView):
         context['botao'] = "Cadastrar"
         context['classbotao'] = "btn-success"
         return context
-
-
 
 
 class ProdutoDelete(LoginRequiredMixin, DeleteView):
@@ -602,11 +623,13 @@ class VendaCreate(LoginRequiredMixin, CreateView):
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-vendas")
     # quais campos vai aparecer no formulario
-    fields = ['cliente','data_venda','vendedor','observacao']
+    fields = ['cliente', 'data_venda', 'observacao']
     # metodo ultilizado para enviar dados ao template
 
     """ Método que é chamadao para validar o formulário e salvar o objeto no banco """
+
     def form_valid(self, form):
+        form.instance.vendedor = self.request.user
         # Executa o form_valid padrão para validar e salvar no banco de dados
         redirect_url = super(VendaCreate, self).form_valid(form)
 
@@ -624,7 +647,7 @@ class VendaCreate(LoginRequiredMixin, CreateView):
             subtotal = itemCarrinho.produto.valor_venda * itemCarrinho.quantidade
             # Atualiza o valor total da venda
             valorTotal = valorTotal + subtotal
-            
+
             # Cria um objeto no ItemsVenda no banco de dados para saber os produtos que foram vendidos
             ItemsVenda.objects.create(
                 preco=subtotal,
@@ -634,7 +657,8 @@ class VendaCreate(LoginRequiredMixin, CreateView):
             )
 
             # Da baixa no estoque no produto
-            itemCarrinho.produto.qtde_estoque = itemCarrinho.produto.qtde_estoque - itemCarrinho.quantidade
+            itemCarrinho.produto.qtde_estoque = itemCarrinho.produto.qtde_estoque - \
+                itemCarrinho.quantidade
             # Atualiza o produto no banco de dados
             itemCarrinho.produto.save()
 
@@ -655,13 +679,18 @@ class VendaCreate(LoginRequiredMixin, CreateView):
         context['titulo'] = "vender produto"
         context['botao'] = "Cadastrar"
         context['classbotao'] = "btn-success"
-        
+
         return context
 
 
 class VendaList(LoginRequiredMixin, ListView):
-	model =  Venda
-	template_name = "adocao/listar_vendas.html"
+    model = Venda
+    template_name = "adocao/listar_vendas.html"
+
+
+class VendaRelatirioList(LoginRequiredMixin, ListView):
+    model = Venda
+    template_name = "adocao/relatorio.html"
 
 
 class VendaUpdate(LoginRequiredMixin, UpdateView):
@@ -673,7 +702,7 @@ class VendaUpdate(LoginRequiredMixin, UpdateView):
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("index")
     # quais campos vai aparecer no formulario
-    fields = ['cliente','data_venda','vendedor','observacao']
+    fields = ['cliente', 'data_venda', 'observacao']
 # metodo ultilizado para enviar dados ao template
 
     def get_context_data(self, *args, **kwargs):
@@ -683,7 +712,7 @@ class VendaUpdate(LoginRequiredMixin, UpdateView):
         context['titulo'] = "editar venda produto"
         context['botao'] = "Cadastrar"
         context['classbotao'] = "btn-success"
-        
+
         return context
 
 
@@ -696,7 +725,7 @@ class VendaDelete(LoginRequiredMixin, DeleteView):
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("index")
     # quais campos vai aparecer no formulario
-    fields = ['cliente','data_venda','vendedor','observacao']
+    fields = ['cliente', 'data_venda', 'vendedor', 'observacao']
 # metodo ultilizado para enviar dados ao template
 
     def get_context_data(self, *args, **kwargs):
@@ -709,3 +738,19 @@ class VendaDelete(LoginRequiredMixin, DeleteView):
 
         return context
 
+################## Detalhar ##################
+
+
+class VendaDetalhes(LoginRequiredMixin,DetailView):
+
+    model = Venda
+    template_name = " adocao/detalhes_vendas.html"
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs) 
+
+        return context
+
+
+    

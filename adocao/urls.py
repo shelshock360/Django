@@ -9,7 +9,7 @@ urlpatterns = [
 	path('',PaginaInicialView.as_view(), name="index"),
     path('sobre/',  SobreView.as_view(), name="sobre"),
 	path('curriculo/',  CurriculoView.as_view(), name="curriculo"),
-	path('relatorio/',  RelatorioView.as_view(), name="relatorio"),
+   	path('relatorio/atual/',  VendaRelatirioList.as_view(), name="relatorio"),
 
 	path('formulario/',  FormularioView.as_view(), name="formulario"),
 	path('lista/estados/',   EstadoList.as_view(), name="listar-estados"),
@@ -20,6 +20,8 @@ urlpatterns = [
 	path('lista/fornecedores/',   FornecedorList.as_view(), name="listar-fornecedores"),
 	path('lista/produtos/',   ProdutoList.as_view(), name="listar-produtos"),
 	path('lista/vendas/',   VendaList.as_view(), name="listar-vendas"),
+
+   	path('venda/<int:pk>', VendaDetalhes.as_view(),name="detalhes_vendas"),
 	# path('funcionario/',  FuncionarioView.as_view(), name="funcionario"),
 	# path('cliente/',  ClienteView.as_view(), name="cliente"),
 

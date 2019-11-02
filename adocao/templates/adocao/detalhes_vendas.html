@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Relatorio de vendas</title>
+    <title>Detalhes de venda </title>
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css'%}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -66,7 +66,7 @@
 
             <div class="col-lg-8 p-3 ">
 
-                <h3 class="ml-5 font-weight-light">Relatorio De Vendas</h3>
+                <h3 class="ml-5 font-weight-light">Detalhes da Venda </h3>
                 <h3 class="ml-5">Geveni</h3>
             </div>
 
@@ -74,7 +74,7 @@
             <div class="col-lg text-right p-3">
                 <div class="">
 
-                    <i class="fas fa-print text-roxo"></i> para imprimir relatorio Presione ctrl p 
+                    <i class="fas fa-print text-roxo"></i> para imprimir relatorio Presione ctrl p
                 </div>
             </div>
 
@@ -85,33 +85,33 @@
         <br />
 
         <table class="table table-striped">
-        
+
             <tr>
                 <th>ID</th>
                 <th>CLIENTE</th>
                 <th>DATA DE VENDA </th>
                 <th>FUNCIONARIO</th>
             </tr>
-        
-            {% for venda in object_list %}
-        
+
+            {% for venda in object %}
+
             <tr>
                 <td>{{venda.pk}}</td>
                 <td>{{venda.cliente}}</td>
                 <td>{{venda.data_venda}}</td>
                 <td>{{venda.vendedor}}</td>
-        
+
                 <td>
-                   
+
                 </td>
             </tr>
-        
+
             {% empty %}
             <tr>
                 <td colspan="3">Nenhuma Venda cadastrada!</td>
             </tr>
             {% endfor %}
-        
+
         </table>
 
 

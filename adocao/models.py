@@ -128,7 +128,7 @@ class Cliente (models.Model):
     observacao = models.TextField(blank=True, null=True, verbose_name="Observação",help_text="qual quer informação extra sobre o cliente")
 
     def __str__(self):
-        return self.nome + "-"+self.rg + "-" + self.cpf + "-" + self.endereco + "-"+self.telefone
+        return self.nome 
 
 
 
@@ -195,11 +195,12 @@ class Produto (models.Model):
 class Venda (models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
     data_venda = models.DateField()
-    vendedor = models.ForeignKey(Funcionario, on_delete=models.PROTECT)
+    vendedor = models.ForeignKey(User, on_delete=models.PROTECT)    
     observacao = models.TextField(blank=True, null=True, verbose_name="Observação",  help_text="qual quer informação adicional para a venda")
     valor_total = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     # produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
     # qtde = models.IntegerField()
+    
 
     def __str__(self):
         return str(self.pk) + ' | ' + str(self.data_venda) + ' | ' + self.cliente.nome + ' | ' + str(self.valor_total)

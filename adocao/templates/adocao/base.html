@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>GENI</title>
+  <title>GEVENI</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
@@ -37,6 +37,7 @@
 
   {%block menu %}
   <!-- Navigation -->
+ 
   <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
     <div class="container">
       <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">GEVENI</a>
@@ -56,18 +57,23 @@
 
 
           <li class="nav-item dropdown">
+            
             <a class="nav-link dropdown-toggle  text-uppercase" href="#" id="navbarDropdown" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Cadastros
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% if request.user.groups.all.0.name == "GERENTE" %}
               <a class="dropdown-item" href="{% url 'cadastrar-estado' %}">Estado</a>
               <a class="dropdown-item" href="{% url 'cadastrar-cidade' %}">Cidades</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'cadastrar-pais' %}">Paises</a>
-              <a class="dropdown-item" href="{% url 'cadastrar-cliente' %}">Clientes</a>
+              <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'cadastrar-funcionario' %}">Funcionarios</a>
               <a class="dropdown-item" href="{% url 'cadastrar-fornecedor' %}">Fornecedor</a>
+              <div class="dropdown-divider"></div>
+              {% endif %}
+              <a class="dropdown-item" href="{% url 'cadastrar-cliente' %}">Clientes</a>
               <a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Produtos</a>
 
             </div>
@@ -79,13 +85,16 @@
               Listas
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% if request.user.groups.all.0.name == "GERENTE" %}
               <a class="dropdown-item" href="{% url 'listar-estados' %}">Lista de Estados</a>
               <a class="dropdown-item" href="{% url 'listar-cidades' %}">Lista de Cidades</a>
               <a class="dropdown-item" href="{% url 'listar-paises' %}">Lista de Paises</a>
-              <a class="dropdown-item" href="{% url 'listar-clientes' %}">Lista de Clientes</a>
               <a class="dropdown-item" href="{% url 'listar-funcionarios' %}">Lista de Funcionarios</a>
               <a class="dropdown-item" href="{% url 'listar-fornecedores' %}">Lista de Fornecedores</a>
-              <a class="dropdown-item" href="{% url 'listar-produtos' %}">Lista de Produtos</a>
+              <div class="dropdown-divider"></div>
+                {% endif %}
+              <a class="dropdown-item" href="{% url 'listar-produtos' %}">Produtos</a>
+              <a class="dropdown-item" href="{% url 'listar-clientes' %}">Lista de Clientes</a>
             </div>
           </li>
 
@@ -98,7 +107,7 @@
               <a class="dropdown-item" href="{% url 'lista-vender-produtos' %}">Realizar Venda</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'listar-vendas' %}">Lista De Vendas</a>
-              <a class="dropdown-item" href="{% url 'relatorio'%}">Relatorio de Vendas</a>
+              <a class="dropdown-item" href="{% url 'relatorio' %}">Relatorio de Vendas</a>
               <!-- <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'cadastrar-venda' %}">Finalizar Venda</a> -->
             </div>
