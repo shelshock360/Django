@@ -1,3 +1,4 @@
+from django.db import migrations, models
 from django.shortcuts import render
 
 from .models import ItensCarrinho
@@ -127,6 +128,21 @@ class ProdutoDeleteCarrinhoVenda (LoginRequiredMixin, DeleteView):
 
         return context
 
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('venda', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.AddField(
+            model_name='itenscarrinho',
+            name='informacoes_adicionais',
+            field=models.CharField(
+                blank=True, max_length=250, null=True, verbose_name='Informações adicionais'),
+        ),
+    ]
 
  
 

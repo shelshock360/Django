@@ -744,11 +744,13 @@ class VendaDelete(LoginRequiredMixin, DeleteView):
 class VendaDetalhes(LoginRequiredMixin,DetailView):
 
     model = Venda
-    template_name = " adocao/detalhes_vendas.html"
+    template_name = "adocao/detalhes_vendas.html"
 
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs) 
+
+        context['produtos'] = ItemsVenda.objects.filter(venda=self.object)
 
         return context
 

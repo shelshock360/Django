@@ -5,26 +5,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Detalhes de venda </title>
+    <title>Detalhes sobre a venda</title>
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css'%}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <style media="screen">
-        .col-lg {
-            color: #9932CC;
-
-
-        }
-
-        .bg-roxo {
-
-            background-color: #77418C;
-        }
-
-        .text-roxo {
-
-            color: #77418C;
-        }
 
         .fa-bars {
             color: #FFFFFF;
@@ -62,59 +47,69 @@
 
     <div class="container  shadow-sm mt-3 bg-white">
 
-        <div class="row bg-light rounded p-5">
+        <div class="row bg-light rounded p-5 text-dark">
 
-            <div class="col-lg-8 p-3 ">
+            <div class="col-lg">
 
-                <h3 class="ml-5 font-weight-light">Detalhes da Venda </h3>
                 <h3 class="ml-5">Geveni</h3>
+                <h3 class="ml-5 font-weight-light">Detalhes Sobre a Venda #{{object.pk}}</h3>
+                <hr>
+                <h4 class="ml-5"><b>Cliente:</b> {{ object.cliente.nome }}</h4>
+                <h4 class="ml-5"><b>CPF:</b> {{ object.cliente.cpf }}</h4>
+                <h4 class="ml-5"><b>Data da Venda:</b> {{ object.data_venda }}</h4>
+                
             </div>
-
-
-            <div class="col-lg text-right p-3">
+            
+            
+            <!-- <div class="col-lg text-right p-3">
                 <div class="">
-
-                    <i class="fas fa-print text-roxo"></i> para imprimir relatorio Presione ctrl p
+                    
+                    <i class="fas fa-print text-roxo"></i> para imprimir relatorio presione ctrl p
                 </div>
-            </div>
-
-
-
+            </div> -->    
+            
         </div>
-
-        <br />
-
+        
         <table class="table table-striped">
-
+            
             <tr>
-                <th>ID</th>
-                <th>CLIENTE</th>
-                <th>DATA DE VENDA </th>
-                <th>FUNCIONARIO</th>
+                <th>PRODUTO</th>
+                <th>MODELO</th>
+                <th>QTDE</th>
+                <th>PRECO UNITARIO</th>
+                <th>SUBTOTAL</th>
+                
+                
+                
             </tr>
-
-            {% for venda in object %}
-
+            
+            {% for item in produtos %}
             <tr>
-                <td>{{venda.pk}}</td>
-                <td>{{venda.cliente}}</td>
-                <td>{{venda.data_venda}}</td>
-                <td>{{venda.vendedor}}</td>
-
-                <td>
-
-                </td>
+                <td>{{ item.produto.nome }}</td>
+                <td>{{ item.produto.modelo }}</td>
+                <td>{{item.qtde }}</td>
+                <td>{{ item.produto.valor_venda}}</td>
+                <td>({{ item.produto.modelo }}) x {{ item.qtde }} = {{ item.preco }}</td> 
+                
             </tr>
-
+            
             {% empty %}
             <tr>
                 <td colspan="3">Nenhuma Venda cadastrada!</td>
             </tr>
             {% endfor %}
-
+            
         </table>
-
-
+        
+        
+        <h4 class="mr-5 text-right"><b>Total da Venda:</b> R${{ object.valor_total }}</h4>
+        
+        
+        <p class="py-4">
+            <a href="#" class="d-inline-block mt-4" onclick="window.close()">
+                Fechar
+            </a>
+        </p>
 
     </div>
 
@@ -123,3 +118,11 @@
 </body>
 
 </html>
+
+<!-- -------------------------------------------------- -->
+
+
+  
+    
+    
+  

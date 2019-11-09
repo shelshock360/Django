@@ -168,7 +168,7 @@ class Fornecedor (models.Model):
     endereco = models.CharField(max_length=100)
     pais = models.ForeignKey(Pais, on_delete=models.PROTECT)
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
-    telefone_fornecedor = models.CharField(max_length=20)
+    telefone = models.CharField(max_length=20)
     observacao = models.TextField(blank=True, null=True, verbose_name="Observação", help_text="qual quer informação extra sobre o fornecedor")
 
     def __str__(self):
