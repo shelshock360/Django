@@ -102,7 +102,17 @@
         </table>
         
         
-        <h4 class="mr-5 text-right"><b>Total da Venda:</b> R${{ object.valor_total }}</h4>
+        <h4 class="mr-5 text-right">
+            <b>Total Bruto:</b> R${{ object.valor_bruto|default_if_none:object.valor_total }}
+        </h4>
+        
+        <h4 class="mr-5 text-right">
+            <b>Desconto:</b> <span class="text-danger">{{ object.desconto|default_if_none:'Sem desconto' }}</span>
+        </h4>
+        
+        <h4 class="mr-5 text-right">
+            <b>Total da Venda:</b> R${{ object.valor_total }}
+        </h4>
         
         
         <p class="py-4">

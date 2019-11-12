@@ -168,7 +168,7 @@ class Fornecedor (models.Model):
     endereco = models.CharField(max_length=100)
     pais = models.ForeignKey(Pais, on_delete=models.PROTECT)
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
-    telefone = models.CharField(max_length=20)
+    telefone= models.CharField(max_length=20)
     observacao = models.TextField(blank=True, null=True, verbose_name="Observação", help_text="qual quer informação extra sobre o fornecedor")
 
     def __str__(self):
@@ -193,11 +193,23 @@ class Produto (models.Model):
 
 
 class Venda (models.Model):
+
+    DESCONTO_CHOICES = (
+        (u"00%", u'Venda sem desconto'),
+        (u'05%', u'05%'),
+        (u'10%', u'10%'),
+        (u'15%', u'15%'),
+        (u'20%', u'20%'),
+        (u'25%', u'25%'),
+    )
+
     cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
     data_venda = models.DateField()
     vendedor = models.ForeignKey(User, on_delete=models.PROTECT)    
     observacao = models.TextField(blank=True, null=True, verbose_name="Observação",  help_text="qual quer informação adicional para a venda")
     valor_total = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    valor_bruto = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    desconto = models.CharField(max_length=4, null=True, blank=True, choices=DESCONTO_CHOICES)
     # produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
     # qtde = models.IntegerField()
     

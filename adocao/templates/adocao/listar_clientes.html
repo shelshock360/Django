@@ -22,8 +22,8 @@
 
     
 
-            <table class="table table-striped">
-
+            <table class="table table-striped" id="tabela-listar">
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>NOME</th>
@@ -34,6 +34,8 @@
                         <th>TELEFONE</th>
                         <th>Opções</th>
                     </tr>
+                  </thead>
+                  <tbody>
                 
                     {% for cliente in object_list %}
                 
@@ -63,7 +65,7 @@
                         <td colspan="3">Nenhuma cliente cadastrado!</td>
                     </tr>
                     {% endfor %}
-                
+                  </tbody>
                 </table>
                 
                 <a href="{% url 'cadastrar-cliente' %}"class="btn btn-success">Adicionar novo cliente</a>

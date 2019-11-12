@@ -26,6 +26,10 @@
   <!-- Custom styles for this template -->
   <link href="{% static 'css/business-casual.css' %}" rel="stylesheet">
 
+  <!-- Para usar o datatables -->
+  <link href="{% static 'vendor/datatables/datatables.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/datatables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -37,7 +41,7 @@
 
   {%block menu %}
   <!-- Navigation -->
- 
+
   <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
     <div class="container">
       <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">GEVENI</a>
@@ -57,7 +61,7 @@
 
 
           <li class="nav-item dropdown">
-            
+
             <a class="nav-link dropdown-toggle  text-uppercase" href="#" id="navbarDropdown" role="button"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Cadastros
@@ -85,22 +89,22 @@
               Listas
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% if request.user.groups.all.0.name == "GERENTE" %}
+              {% if request.user.groups.all.0.name == "GERENTE" %}
               <a class="dropdown-item" href="{% url 'listar-estados' %}">Lista de Estados</a>
               <a class="dropdown-item" href="{% url 'listar-cidades' %}">Lista de Cidades</a>
               <a class="dropdown-item" href="{% url 'listar-paises' %}">Lista de Paises</a>
               <a class="dropdown-item" href="{% url 'listar-funcionarios' %}">Lista de Funcionarios</a>
               <a class="dropdown-item" href="{% url 'listar-fornecedores' %}">Lista de Fornecedores</a>
               <div class="dropdown-divider"></div>
-                {% endif %}
+              {% endif %}
               <a class="dropdown-item" href="{% url 'listar-produtos' %}">Produtos</a>
               <a class="dropdown-item" href="{% url 'listar-clientes' %}">Lista de Clientes</a>
             </div>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link  text-uppercase  dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link  text-uppercase  dropdown-toggle" href="#" id="navbarDropdown" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Venda
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -131,10 +135,10 @@
               {{ request.user.username }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            
+
               <a class="dropdown-item" href="{% url 'alterar-senha' %}">
                 <i class="fa fa-key" aria-hidden="true"></i> Alterar senha</a>
-        
+
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'logout' %}">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
@@ -183,7 +187,8 @@
 
 
 
-          <p>Algum texto aqui</p>
+          <p>Obrigado por escolher o geveni para sua empresa. 
+          </p>
 
           <div class="">
             <img class="img-fluid rounded" src="{% static 'img/mundoCorporativo.jpg' %}" width="700" height="500">
@@ -209,6 +214,11 @@
   <script src="{% static 'vendor/jquery/jquery.js' %}"></script>
   <script src="{% static 'js/popper.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.js' %}"></script>
+  
+  <!-- Para usar o datatables -->
+  <script src="{% static 'vendor/datatables/datatables.js' %}"></script>
+  <script src="{% static 'vendor/datatables/DataTables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'vendor/datatables/datatables_ptbr.js' %}"></script>
 
   {% block script %}
 

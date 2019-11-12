@@ -123,7 +123,6 @@ class EstadoList(GroupRequiredMixin,LoginRequiredMixin, ListView):
 
     ######################Paises##############
 
-
 class PaisCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     # defini qual o modelo pra classe
 
@@ -623,7 +622,7 @@ class VendaCreate(LoginRequiredMixin, CreateView):
     # Pra onde redirecionar o usuario  depois de inserir
     success_url = reverse_lazy("listar-vendas")
     # quais campos vai aparecer no formulario
-    fields = ['cliente', 'data_venda', 'observacao']
+    fields = ['cliente', 'data_venda', 'desconto', 'observacao']
     # metodo ultilizado para enviar dados ao template
 
     """ Método que é chamadao para validar o formulário e salvar o objeto no banco """
@@ -666,7 +665,13 @@ class VendaCreate(LoginRequiredMixin, CreateView):
             itemCarrinho.delete()
 
         # Atualiza o objeto dessa venda com o valor total
-        self.object.valor_total = valorTotal
+        # Primeiro tira a % do desconto e transforma ele para inteiro e depois faz a conta
+        desconto = valorTotal * int(self.object.desconto.replace("%", "")) / 100
+        # Define o valor bruto (sem desconto)
+        self.object.valor_bruto = valorTotal
+        # Calcula o valor com desconto
+        self.object.valor_total = self.object.valor_bruto - desconto
+        # Salva a venda
         self.object.save()
 
         # Fim do form_valid
