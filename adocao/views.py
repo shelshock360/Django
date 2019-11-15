@@ -491,7 +491,7 @@ class FornecedorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 class FornecedorList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     group_required = u"gerente"
     model = Fornecedor
-    template_name = "adocao/listar_funcionarios.html"
+    template_name = "adocao/listar_fornecedores.html"
 
 
 class FornecedorUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
