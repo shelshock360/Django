@@ -481,7 +481,7 @@ class FornecedorCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
             *args, **kwargs)
 
         # adiciona coisas ao contextos das coisas
-        context['titulo'] = "Cadastro de novos Fornecedores"
+        context['titulo'] = "Cadastrar novo Fornecedor"
         context['botao'] = "Cadastrar"
         context['classbotao'] = "btn-success"
 

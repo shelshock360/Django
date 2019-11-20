@@ -13,6 +13,13 @@ error_messages = {
 }
 
 
+error_messagesCNPJ = {
+    'invalid': _("Invalid CNPJ number."),
+    'digits_only': _("This field requires only numbers."),
+    'max_digits': _("This field requires exactly 11 digits."),
+}
+
+
 def DV_maker(v):
     if v >= 2:
         return 11 - v
@@ -68,9 +75,9 @@ def validate_CNPJ(value):
     try:
         int(value)
     except ValueError:
-        raise ValidationError(error_messages['digits_only'])
+        raise ValidationError(error_messagesCNPJ['digits_only'])
     if len(value) > 14:
-        raise ValidationError(error_messages['max_digits'])
+        raise ValidationError(error_messagesCNPJ['max_digits'])
     orig_dv = value[-2:]
 
     new_1dv = sum([i * int(value[idx]) for idx,
@@ -82,7 +89,7 @@ def validate_CNPJ(value):
     new_2dv = DV_maker(new_2dv % 11)
     value = value[:-1] + str(new_2dv)
     if value[-2:] != orig_dv:
-        raise ValidationError(error_messages['invalid'])
+        raise ValidationError(error_messagesCNPJ['invalid'])
 
     return orig_value
 #____________________________#
@@ -201,6 +208,13 @@ class Venda (models.Model):
         (u'15%', u'15%'),
         (u'20%', u'20%'),
         (u'25%', u'25%'),
+        (u'35%', u'35%'),
+        (u'40%', u'40%'),
+        (u'45%', u'45%'),
+        (u'50%', u'50%'),
+        (u'60%', u'60%'),
+        (u'70%', u'70%'),
+        (u'75%', u'75%'),
     )
 
     cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
