@@ -65,16 +65,25 @@
 $(document).ready(function () {
   
   $('#id_cpf').mask('000.000.000-00');
-  $('#id_data_contratacao').mask('00/00/0000');
-   $('#id_data_chegada').mask('00/00/0000');
+  // $('#id_data_contratacao').mask('00/00/0000');
+  // $('#id_data_chegada').mask('00/00/0000');
+  
+
   $('#id_cnpj').mask('00.000.000/0000-00');
 
   $('#id_senha').attr('type','password');
 
   $('#id_email').attr('placeholder', '@email.com');
   
+  // $('#id_data_venda').mask('00/00/0000');
 
-  $('#id_data_venda').mask('00/00/0000');
+  $('input[name*=data_]').attr('type', 'date');
+
+  // if($('#id_data_chegada').val() == ""){
+  //   var d = new Date();
+  //   var data = d.getDate() + "/" + 
+  //   $('#id_data_chegada').val(data);
+  // }
 
         var SPMaskBehavior = function (val) {
     return val.replace(/\D/g, '').length === 11 ? '(000) 00000-0000' : '(000) 0000-00009';

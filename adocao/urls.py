@@ -70,4 +70,12 @@ urlpatterns = [
 	#URLS de cadastros de venda
 	path('cadastrar/venda/',VendaCreate.as_view(), name="cadastrar-venda"),
 
+	#URLS de cadastros de  entrada de produto
+
+	path('cadastrar/entradaProduto/', EntradaProdutoCreate.as_view(),
+	     name="cadastrar-entrada-produto"),
+
+
+
+
 ]

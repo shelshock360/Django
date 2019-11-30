@@ -238,3 +238,19 @@ class ItemsVenda(models.Model):
       venda = models.ForeignKey(Venda, on_delete=models.PROTECT)
       def __str__(self):
         return "[Venda ID: " + str(self.venda.pk) + "] " + self.produto.nome + " x " + str(self.qtde) + " = " + str(self.preco)
+
+
+class EntradaProduto (models.Model):
+    qtde=models.DecimalField(max_digits=8,decimal_places=2)
+    data_chegada = models.DateField()
+    observacao = models.TextField(blank=True, null=True, verbose_name="Observação",
+                                  help_text="qual quer informação adicional do produto")
+    produto = models.ForeignKey(Produto, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return str(self.produto.pk) + "] " + str(self.qtde)
+
+
+
+
+

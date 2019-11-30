@@ -760,4 +760,32 @@ class VendaDetalhes(LoginRequiredMixin,DetailView):
         return context
 
 
+class EntradaProdutoCreate (LoginRequiredMixin, CreateView):
+
+    model = EntradaProduto
+    template_name= "adocao/formulario.html"
+    fields = ['qtde', 'data_chegada','produto', 'observacao']
+    success_url = reverse_lazy("listar-produtos")
     
+       
+    def get_context_data(self, *args, **kwargs):
+        context = super(EntradaProdutoCreate, self).get_context_data(
+            *args, **kwargs)
+
+        # adiciona coisas ao contextos das coisas
+        context['titulo'] = "Cadastrar produto recem chegado a loja"
+        context['botao'] = "Cadastrar"
+        context['classbotao'] = "btn-success"
+
+        return context
+    
+    
+    def form_valid(self, form):
+        redirect_url = super(EntradaProdutoCreate, self).form_valid(form)
+        print("quantidade",self.object.produto.qtde_estoque) 
+        self.object.produto.qtde_estoque += self.object.qtde
+        print("quantidade",self.object.produto.qtde_estoque) 
+        self.object.produto.data_chegada = self.object.data_chegada
+        self.object.produto.save()
+        
+        return redirect_url

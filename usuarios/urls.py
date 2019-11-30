@@ -12,7 +12,7 @@ urlpatterns = [
 
     path('alterar-minha-senha/', auth_views.PasswordChangeView.as_view(
         template_name='adocao/formulario.html',
-        extra_context={'titulo': 'Alterar senha atual'},
+        extra_context={'titulo': 'Alterar senha atual', 'botao':'Trocar Senha'},
         success_url=reverse_lazy('index')
         ), name="alterar-senha"),
 
